@@ -1,0 +1,333 @@
+\graphicspath{{lectures/07_eloadas_abrak/}}
+
+\section{7. előadás -- Lineáris differenciálegyenlet-rendszerek és magasabbrendű egyenletek}
+
+\subsection{Lineáris differenciálegyenlet-rendszerek (folytatás)}
+\textit{EA: 2019. 11. 06. (7). A kézirat hivatkozása: „L. An. alk. 7. ea.”}
+
+\textbf{Emlékeztető.} Lineáris differenciálegyenlet-rendszer:
+\[
+ x'(t)=A(t)x(t)+b(t),\qquad t\in I.
+\]
+\textit{(Volt: kezdetiérték-probléma; a kezdetiérték-probléma megoldásának létezése és egyértelműsége.)}
+
+\subsection{A homogén lineáris rendszer megoldástere}
+\textbf{Homogén egyenlet:} $b(t)=0$, tehát $x'=Ax$.
+
+\begin{matbox}
+\textbf{Tétel.} Jelöljük az összes teljes homogén megoldás halmazát:
+\[
+ \mathcal M_h:=\{\varphi:I\to\mathbb R^n\mid
+ \varphi'=A\varphi,\ \varphi\text{ teljes megoldás}\}.
+\]
+\begin{enumerate}[label=\arabic*)]
+\item $\mathcal M_h\subset C^1(I,\mathbb R^n)$ egy $n$ dimenziós altér.
+\item Ha $\varphi_1,\varphi_2,\ldots,\varphi_n\in\mathcal M_h$, akkor
+\[
+ \begin{gathered}
+ \varphi_1,\ldots,\varphi_n\ \text{lineárisan függetlenek}\\
+ \Longleftrightarrow\\
+ \exists t_0\in I:\quad \varphi_1(t_0),\ldots,\varphi_n(t_0)\in\mathbb R^n\\
+ \text{lineárisan függetlenek.}
+ \end{gathered}
+\]
+\end{enumerate}
+\end{matbox}
+
+\textbf{Bizonyítás.} \textit{(Vázlat; a kézirat hangsúlyozza: „Ez kell!!!”)}
+\begin{enumerate}[label=\arabic*)]
+\item $\mathcal M_h$ altér (triviális).
+\item $\dim\mathcal M_h=n$. Belátjuk a következő kezdetiérték-problémákból:
+\[
+ x'=Ax,\qquad x(\tau)=e_i,\qquad i=1,\ldots,n,
+\]
+ahol az $\mathbb R^n$ kanonikus bázisának vektorai:
+\[
+ e_i=(0,\ldots,0,\underbrace{1}_{i\text{-edik hely}},0,\ldots,0)^T.
+\]
+\end{enumerate}
+\textit{Kéziratos hivatkozás: 07\_An\_alk\_2022\_osz.pdf.}
+
+\subsubsection*{Alaprendszer és alapmátrix}
+\textbf{Definíció.}
+\begin{enumerate}[label=\arabic*)]
+\item Ha $\mathcal M_h$ egy $\varphi_1,\ldots,\varphi_n$ bázisát
+vesszük az $x'=Ax$ homogén egyenletben, akkor ez a bázis
+\textbf{alaprendszer}.
+\item Az alaprendszer oszlopaiból álló mátrix:
+\[
+ \Phi(t):=\bigl(\varphi_1(t),\ldots,\varphi_n(t)\bigr)
+ =\begin{bmatrix}\vert&&\vert\\
+                   \varphi_1(t)&\cdots&\varphi_n(t)\\
+                   \vert&&\vert\end{bmatrix}
+ \in\mathbb R^{n\times n},
+\]
+\[
+ \Phi:I\longrightarrow\mathbb R^{n\times n}
+ \qquad\textbf{alapmátrix}.
+\]
+\end{enumerate}
+
+\begin{matbox}
+\textbf{Tétel.} Ha $\varphi_1,\ldots,\varphi_n$ alaprendszer,
+a $\Phi$ alapmátrixa az $x'=Ax$ homogén egyenletnek, akkor:
+\begin{enumerate}[label=\arabic*)]
+\item
+\[
+ \Phi'(t)=A(t)\Phi(t)
+ \qquad\text{(mátrix-differenciálegyenlet)}.
+\]
+\item
+\[
+ \mathcal M_h=\left\{\sum_{k=1}^{n}c_k\varphi_k
+ \;\middle|\;c_1,\ldots,c_n\in\mathbb R\right\},
+\]
+valamint, oszlopvektorral jelölve:
+\[
+ \mathcal M_h=\{\Phi\,c\mid c\in\mathbb R^n\}.
+\]
+\end{enumerate}
+\end{matbox}
+
+\subsection{Inhomogén lineáris rendszerek}
+\textbf{Inhomogén egyenlet:}
+\[
+ x'=Ax+b,\qquad b\ne0.\tag{IH}
+\]
+\textbf{Észrevétel.} Ha $\psi_1,\psi_2$ az (IH) megoldásai,
+akkor $\psi_1-\psi_2$ megoldása az $x'=Ax$ homogén egyenletnek.
+
+\textbf{Tétel.} Legyen $\psi_p$ az inhomogén egyenlet egy
+\textbf{partikuláris megoldása}. Ekkor az inhomogén egyenlet
+általános megoldása:
+\[
+ \psi=\Phi\,c+\psi_p,
+\]
+ahol $\Phi$ a homogén egyenlet alapmátrixa és
+$c\in\mathbb R^n$ oszlopvektor.
+
+\subsubsection*{A partikuláris megoldás előállítása: az állandók variálása}
+Keressük $\psi_p$-t a következő alakban:
+\[
+ \psi_p(t)=\Phi(t)c(t).
+\]
+Ekkor
+\begin{align*}
+ \psi_p'(t)
+ &=\Phi'(t)c(t)+\Phi(t)c'(t)\\
+ &=A(t)\Phi(t)c(t)+\Phi(t)c'(t)\\
+ &=A(t)\psi_p(t)+b(t)\\
+ &=A(t)\Phi(t)c(t)+b(t).
+\end{align*}
+A két $A(t)\Phi(t)c(t)$ tag kiesik. Az alapmátrix invertálható,
+ezért $\Phi^{-1}(t)$ létezik, és
+\[
+ c'(t)=\Phi^{-1}(t)b(t)
+ \quad\Longrightarrow\quad
+ c(t)=\int_\tau^t\Phi^{-1}(s)b(s)\,ds.
+\]
+
+\begin{matbox}
+\textbf{Tétel (Cauchy-formula).} Legyen $\Phi$ az $x'=Ax$
+homogén egyenlet egy alapmátrixa. Minden
+$(\tau,\xi)\in I\times\mathbb R^n$ esetén az
+\[
+ x'=Ax+b,\qquad x(\tau)=\xi
+\]
+kezdetiérték-probléma globálisan egyértelműen oldható meg,
+és a $\psi$ teljes megoldás:
+\begin{align*}
+ \psi(t)&=\Phi(t)\Phi^{-1}(\tau)\xi
+ +\Phi(t)\underbrace{\int_\tau^t
+             \Phi^{-1}(s)b(s)\,ds}_{\psi_p(t)}
+ \qquad(t\in I).
+\end{align*}
+\end{matbox}
+
+\textbf{Megjegyzések.}
+\begin{enumerate}[label=\arabic*)]
+\item Az inhomogén kezdetiérték-probléma megoldásához
+\textbf{csak} $\Phi$ ismerete kell (de $\Phi$ meghatározása nehéz feladat).
+\item $\Phi$ explicit előállítása \textbf{csak (!)}
+állandó együtthatós esetben lehetséges (lásd később).
+\end{enumerate}
+
+\subsection{Magasabbrendű, n-edrendű explicit differenciálegyenletek}
+\textit{Hivatkozás: 08\_An\_alk\_2022\_osz.pdf.}
+
+Legyen $n\in\mathbb N$, $h:\mathbb R\times\mathbb R^n\to\mathbb R$
+folytonos függvény. Keressünk $I\subseteq\mathbb R$ nyílt intervallumon
+$\varphi:I\to\mathbb R$, $\varphi\in C^n$ függvényt úgy, hogy
+\[
+ \bigl(t,\varphi(t),\varphi'(t),\ldots,
+              \varphi^{(n-1)}(t)\bigr)\in D_h
+ \qquad(t\in I),
+\]
+és
+\[
+ \varphi^{(n)}(t)
+ =h\bigl(t,\varphi(t),\varphi'(t),\ldots,
+                    \varphi^{(n-1)}(t)\bigr).
+\]
+
+\textbf{Röviden:}
+\[
+ y^{(n)}=h\circ\bigl(\operatorname{id},y,y',\ldots,
+             y^{(n-1)}\bigr).\tag{\#}
+\]
+Ez \textbf{explicit}, mert az $n$-edik derivált explicit kifejezhető.
+
+Legyen
+\[
+ (\tau,\xi)\in D_h\subseteq\mathbb R\times\mathbb R^n,
+ \qquad\xi=(\xi_1,\ldots,\xi_n).
+\]
+Keressük az olyan $y$-t, amelyre
+\[
+ y(\tau)=\xi_1,\qquad y'(\tau)=\xi_2,
+ \quad\ldots,\quad y^{(n-1)}(\tau)=\xi_n.
+\]
+Ez az \textbf{$n$-edrendű kezdetiérték-probléma}.
+
+\textbf{Megjegyzés.} A mellékfeltételek más módon is megadhatók,
+például peremfeltételekkel (sok eredmény született velük
+kapcsolatban; lásd Tóth--Simon).
+
+\subsection{Átviteli elv}
+\textbf{Észrevétel.} Legyen $\varphi:I\to\mathbb R$,
+$\varphi\in C^n$ az (\#) egyenlet megoldása. Legyen
+\[
+ \psi:=\begin{bmatrix}
+     \varphi\\\varphi'\\\vdots\\\varphi^{(n-1)}
+ \end{bmatrix}:I\to\mathbb R^n,
+ \qquad
+ \psi=\begin{bmatrix}\psi_1\\\vdots\\\psi_n\end{bmatrix}.
+\]
+Ekkor
+\[
+ \psi'=\begin{bmatrix}
+ \varphi'\\\varphi''\\\vdots\\\varphi^{(n)}
+ \end{bmatrix}
+ =\begin{bmatrix}
+ \psi_2\\\psi_3\\\vdots\\
+ h\circ(\operatorname{id},\psi_1,\ldots,\psi_{n-1})
+ \end{bmatrix}.
+\]
+% FORRÁSHŰ, 25. PDF-oldal: a kézirat az előző mátrixban
+% a h argumentumát psi_{n-1}-nél zárja, és az f állapotvektora u_1-gyel indul.
+% A matematikailag helyesnek vélt változatok az ellenorzes.md-ben szerepelnek.
+Definiáljuk
+\[
+ f(t,u_1,\ldots,u_n):=
+ \begin{bmatrix}
+ u_1\\u_2\\\vdots\\h(t,u_1,\ldots,u_n)
+ \end{bmatrix}\in\mathbb R^n.
+\]
+Ezért
+\[
+ \psi'=f\circ(\operatorname{id},\psi).
+\]
+
+\begin{matbox}
+\textbf{Tétel (átviteli elv).}
+\[
+ \underbrace{y^{(n)}=h\circ(\operatorname{id},y,y',\ldots,
+                         y^{(n-1)})}_{n\text{-edrendű d.e.}}
+ \quad\Longleftrightarrow\quad
+ \underbrace{x'=f\circ(\operatorname{id},x)}_{\text{elsőrendű d.e.r.}}.
+\]
+\end{matbox}
+
+\begin{matbox}
+\textbf{Tétel.} Tegyük fel, hogy $h\in C$, és $h$ a második
+változójában lokális Lipschitz-feltételnek tesz eleget.
+Ekkor minden $(\tau,\xi)\in D_h\subseteq\mathbb R\times\mathbb R^n$
+pontban a hozzá tartozó kezdetiérték-probléma globálisan
+egyértelműen oldható meg, és minden teljes megoldás
+határtól határig halad.
+\end{matbox}
+
+\subsection{n-edrendű lineáris differenciálegyenletek}
+\textbf{Általános alak} ($n\in\mathbb N$):
+\[
+ y^{(n)}+a_{n-1}y^{(n-1)}+\cdots+a_1y'+a_0y=b.
+\]
+Itt $a_i,b:I\to\mathbb R$ folytonos függvények,
+$I\subseteq\mathbb R$ nyílt intervallum.
+\textit{(Az eredeti sorban az indexhatár $i=0,\ldots,n$;
+a képlet $a_0,\ldots,a_{n-1}$ együtthatókat tartalmaz.
+Az eltérést az ellenőrzési jelentés tárgyalja.)}
+
+\begin{itemize}
+\item $b\equiv0$: \textbf{homogén egyenlet}.
+\item $b\ne0$: \textbf{inhomogén egyenlet}.
+\end{itemize}
+
+\begin{matbox}
+\textbf{Tétel.}
+\begin{enumerate}[label=\arabic*)]
+\item Minden $(\tau,\xi)\in I\times\mathbb R^n$ esetén
+az inhomogén differenciálegyenletre vonatkozó kezdetiérték-probléma
+globálisan egyértelműen oldható meg, és minden teljes megoldás
+értelmezési tartománya az egész $I$.
+\item A homogén egyenletnek van $n$ darab lineárisan független megoldása,
+és minden megoldás ezek lineáris kombinációja.
+\item $\varphi_1,\varphi_2,\ldots,\varphi_n$ homogén megoldások
+lineárisan függetlenek akkor és csak akkor, ha
+\[
+ \exists t_0\in I:\qquad\det\bigl(W(t_0)\bigr)\ne0,
+\]
+ahol a \textbf{Wronski-féle mátrix}:
+\[
+ W(t)=\begin{bmatrix}
+ \varphi_1(t)&\cdots&\varphi_n(t)\\
+ \varphi_1'(t)&\cdots&\varphi_n'(t)\\
+ \vdots&&\vdots\\
+ \varphi_1^{(n-1)}(t)&\cdots&\varphi_n^{(n-1)}(t)
+ \end{bmatrix}.
+\]
+A $\det W(t)$ a \textbf{Wronski-determináns}.
+\textit{Bizonyítás: lásd Tóth--Simon.}
+\end{enumerate}
+\end{matbox}
+
+\begin{matbox}
+\textbf{Tétel (szuperpozíció).}
+Ha $\psi_p$ az inhomogén egyenlet partikuláris megoldása,
+akkor az inhomogén egyenlet általános megoldása
+\[
+ \psi=\varphi+\psi_p,
+\]
+ahol $\varphi$ a homogén egyenlet általános megoldása.
+\end{matbox}
+
+\subsubsection*{Állandók variálása az $n$-edrendű lineáris egyenletnél}
+\begin{matbox}
+\textbf{Tétel (állandók variálása).} Tekintsük
+\[
+ y^{(n)}+a_{n-1}y^{(n-1)}+\cdots+a_1y'+a_0y=b,
+\]
+ahol az $a_i,b:I\to\mathbb R$ függvények folytonosak
+($i=0,\ldots,n-1$).
+Legyen $\varphi_1,\ldots,\varphi_n$ a homogén egyenlet
+\textbf{alaprendszere}. Ekkor az inhomogén egyenlet egy
+$\psi_p$ partikuláris megoldása:
+\[
+ \psi_p(t)=c_1(t)\varphi_1(t)+\cdots+c_n(t)\varphi_n(t),
+ \qquad t\in I,
+\]
+ahol
+\[
+ c'(t)=\begin{bmatrix}
+ c_1'(t)\\\vdots\\c_n'(t)
+ \end{bmatrix},
+ \qquad\Phi(t)=W(t),\qquad
+ W(t)c'(t)=\begin{bmatrix}
+ 0\\0\\\vdots\\b(t)
+ \end{bmatrix}.
+\]
+\end{matbox}
+
+\textbf{Megjegyzés.} Az inhomogén megoldáshoz elég a homogén
+egyenlet egy alaprendszerét ismerni. Az explicit előállítás
+\textbf{csak} állandó együtthatós esetben van általános módszer.

@@ -1,0 +1,284 @@
+\begin{center}
+{\Large\bfseries\color{ink} Differenciálegyenletek}\\[5pt]
+{\large\bfseries 1. előadás}\\[4pt]
+{\small 2026. ősz}\qquad\textcolor{graytext}{\small Az eredeti kézirat dátuma: 2019. 09. 11. (1)}
+\end{center}
+
+\begin{matbox}
+\textbf{Előadó:} Szili László \hfill \textbf{Időpont:} Kedd 8:15--9:45
+
+\textbf{Honlapon:}
+\begin{itemize}[leftmargin=1.4em]
+\item \textbf{Irodalom:} Simon L. Péter, Tóth János: d.e. (2008); Pontrjagin: közönséges differenciálegyenletek
+\item \textbf{Követelmény:} vizsgajegy: az előadáson elhangzottak.
+\item \textbf{Szimbolikus programcsomagok:} Mathematica (Wolfram), Maple (Differenciálegyenlet lehetőségek), Derive.
+\end{itemize}
+\end{matbox}
+
+\section{Bevezetés: Algebrai és differenciálegyenletek}
+
+\fej{Emlékeztető: Algebrai egyenletek}
+Adott egy $f\colon\mathbb R\to\mathbb R$ függvény; keressük az
+$x\in D_f$ számot, amelyre
+\[
+ f(x)=0.
+\]
+
+\fej{Differenciálegyenlet}
+Az is egy feladat, de az \emph{ismeretlen most függvény}.
+
+\medskip
+\begin{center}
+\begin{tikzpicture}[
+  base/.style={draw=ink!45,rounded corners=2pt,align=center,inner sep=5pt},
+  node distance=13mm]
+\node[base,draw=accent,thick,fill=soft] (top) {\textbf{Differenciálegyenlet (DE)}};
+\node[base,below left=12mm and 4mm of top] (ode)
+  {\textbf{Közönséges DE}\\[-1pt]\footnotesize ismeretlen: $\mathbb R\to\mathbb R$ függvény};
+\node[base,below right=12mm and 4mm of top] (pde)
+  {\textbf{Parciális DE}\\[-1pt]\footnotesize ismeretlen: többváltozós függvény};
+\draw[ink,semithick] (top.south) -- ++(0,-5mm) -| (ode.north);
+\draw[ink,semithick] (top.south) -- ++(0,-5mm) -| (pde.north);
+\end{tikzpicture}
+\end{center}
+
+\fej{Közönséges differenciálegyenletek fajtái}
+\begin{enumerate}[label=\arabic*)]
+\item \textbf{Explicit elsőrendű:}
+\[
+ x'(t)=f\bigl(t,x(t)\bigr).
+\]
+\item \textbf{Implicit elsőrendű:} a derivált nincs kifejezve:
+\[
+ F\bigl(t,x(t),x'(t)\bigr)=0.
+\]
+\item \textbf{Magasabbrendű differenciálegyenletek:} magasabb rendű n>2 deriváltak.
+\item \textbf{Differenciálegyenlet-rendszer.}
+\end{enumerate}
+
+\fej{Parciális differenciálegyenlet -- példa}
+\[
+ \frac{\partial^2 u(x,y)}{\partial x^2}
+ +\frac{\partial^2 u(x,y)}{\partial y^2}=0.
+\]
+Ez a \emph{Laplace-egyenlet} (ld.: Analízis alkalmazásai 2022-23 tanév, ősz, 5. előadás).
+
+
+\section{Bevezető példák}
+
+\subsection*{1. példa: adott függvény primitív függvényei}
+\begin{matbox}
+\[
+ \boxed{x'(t)=h(t)},\qquad t\in I\subseteq\mathbb R,
+ \quad I\text{ nyílt intervallum}.
+\]
+Adott $h\colon I\to\mathbb R$, ahol $h\in C(I)$.
+\end{matbox}
+
+\textbf{Megoldás:} az $x(t)$ megoldások éppen $h$ primitív függvényei.
+
+\subsection*{2. példa: $x'=x$ és a kezdetiérték-probléma}
+
+Határozzuk meg az összes olyan $x\colon I\to\mathbb R$ függvényt, amelyre
+\begin{matbox}
+\[
+ \boxed{x'(t)=x(t)}\qquad (t\in I,\ I\text{ nyílt intervallum}).
+\]
+\end{matbox}
+
+\textbf{Megoldások:} $I\subseteq\mathbb R$ tetszőleges nyílt intervallumon
+\[
+ \boxed{x(t)=c\,e^t}\qquad (t\in I),\quad \forall c\in\mathbb R.
+\]
+
+\textbf{Van más megoldás?} Nincs!
+
+\textbf{Ötlet:} Tegyük fel, hogy $\varphi\colon I\to\mathbb R$
+megoldás, tehát $\varphi'(t)=\varphi(t)$, és tekintsük a
+$\dfrac{\varphi(t)}{e^t}$ függvényt (Lagrange-középértéktétel):
+\begin{align*}
+\left(\frac{\varphi(t)}{e^t}\right)'
+ &=\frac{\varphi'(t)e^t-\varphi(t)e^t}{e^{2t}}\\
+ &=0
+ \quad\Longrightarrow\quad
+ \exists c\in\mathbb R:\quad
+ \frac{\varphi(t)}{e^t}=c
+ \quad(\forall t\in I).
+\end{align*}
+Következésképpen $\varphi(t)=ce^t$.
+
+\newpage
+\fej{Szemléltetés: megoldásgörbék}
+\begin{center}
+\begin{tikzpicture}[scale=0.94]
+\begin{scope}
+\clip (-2.8,-2.0) rectangle (3.0,2.9);
+\foreach \c in {0.15,0.3,0.62,1.0,-0.13,-0.27,-0.52,-0.90}{
+\draw[curve] plot[domain=-2.8:2.9,samples=70] (\x,{\c*exp(\x)});
+}
+\draw[guide] (0,1.13)--(0.60,1.13)--(0.60,0);
+\fill[ink] (0.60,1.13) circle(1.8pt);
+\end{scope}
+\draw[axis] (-2.8,0)--(3,0) node[below] {$t$};
+\draw[axis] (0,-2.0)--(0,2.9) node[above] {$x$};
+\node[left] at (0,1.13) {$\xi$};
+\node[below] at (0.60,0) {$\tau$};
+\node at (2.18,2.50) {$c>0$};
+\node at (2.25,-1.58) {$c<0$};
+\end{tikzpicture}
+
+Kezdetiérték-probléma (k.é.p.)
+\[
+\boxed{\begin{cases}
+ x'(t)=x(t),\\
+ x(\tau)=\xi.
+\end{cases}}
+\]
+\end{center}
+
+\subsection*{3. példa: $x'=\sqrt{|x|}$}
+
+Az összes megoldást keressük:
+\begin{matbox}
+\[
+\boxed{x'(t)=\sqrt{\lvert x(t)\rvert}},\qquad t\in\mathbb R.
+\]
+\end{matbox}
+
+\textbf{Megoldásvázlat:} a kezdetiérték-probléma
+\[
+\begin{cases}
+ x'(t)=\sqrt{|x(t)|},\\
+ x(\tau)=\xi.
+\end{cases}
+\]
+Három esetet különböztetünk meg.
+
+\fej{(i) $\xi>0$, a vizsgált szakaszon $x(t)>0$}
+Tegyük fel, hogy $\varphi(t)>0$ $\forall$ minden $t\in I$ esetén. Ekkor
+\[
+\varphi'(t)=\sqrt{\varphi(t)},
+\]
+így
+\[
+\frac{\varphi'(t)}{\sqrt{\varphi(t)}}
+ =\left(2\sqrt{\varphi(t)}\right)'=1.
+\]
+
+\begin{center}
+\begin{tikzpicture}[scale=0.67]
+\draw[axis] (-2.2,0)--(2.6,0) node[below] {$t$};
+\draw[axis] (0,-0.75)--(0,2.35) node[above] {$x$};
+\draw[curve] plot[domain=-1.65:1.36,samples=45] (\x,{.25*(\x+1.65)^2});
+\draw[curve] plot[domain=-0.7:2.2,samples=45] (\x,{.25*(\x+0.70)^2});
+\draw[guide] (0,1)--(0.35,1)--(0.35,0);
+\fill[ink] (0.35,1) circle(1.8pt);
+\node[left] at (0,1) {$\xi$};
+\node[below] at (0.35,0) {$\tau$};
+\end{tikzpicture}
+\figlabel{Pozitív kezdeti érték}
+\end{center}
+
+\fej{(ii) $\xi<0$, a vizsgált szakaszon $x(t)<0$}
+A jegyzet a negatív tartományban futó, a $t$-tengelyt elérő
+megoldásgörbéket szemlélteti.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.67]
+\draw[axis] (-2.2,0)--(2.6,0) node[below] {$t$};
+\draw[axis] (0,-2.30)--(0,0.9) node[above] {$x$};
+\foreach \a in {0.45,1.35,2.35}{
+\draw[curve] plot[domain=-2.1:\a,samples=45] (\x,{-.25*(\a-\x)^2});
+\draw[curve] (\a,0)--(2.3,0);
+}
+\draw[guide] (0,-0.46)--(1,-0.46)--(1,0);
+\fill[ink] (1,-0.46) circle(1.8pt);
+\node[left] at (0,-0.46) {$\xi$};
+\node[above] at (1,0.06) {$\tau$};
+\end{tikzpicture}
+\figlabel{Negatív kezdeti érték}
+\end{center}
+
+\fej{(iii) $\xi=0$, $x(\tau)=0$}
+\[
+\varphi(t)=0\qquad\text{megoldás.}
+\]
+A kézirat ezenkívül több, a $t$-tengelyhez csatlakozó
+megoldásgörbét is ábrázol.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.67]
+\draw[axis] (-2.2,0)--(2.6,0) node[below] {$t$};
+\draw[axis] (0,-1.65)--(0,2.05) node[above] {$x$};
+\draw[curve] (-2.1,0)--(2.3,0);
+\draw[curve] plot[domain=-2.1:-0.25,samples=40] (\x,{-.40*(-0.25-\x)^2});
+\draw[curve] (-0.25,0)--(0.65,0);
+\draw[curve] plot[domain=0.65:2.4,samples=40] (\x,{.50*(\x-0.65)^2});
+\draw[curve] plot[domain=-1.75:0.55,samples=40] (\x,{-.26*(0.55-\x)^2});
+\draw[curve] (0.55,0)--(1.15,0);
+\draw[curve] plot[domain=1.15:2.4,samples=40] (\x,{.45*(\x-1.15)^2});
+\fill[ink] (0.55,0) circle(1.8pt);
+\node[below] at (0.55,0) {$\tau$};
+\node[left] at (0,0) {$\xi=0$};
+\end{tikzpicture}
+\figlabel{Zérus kezdeti érték}
+\end{center}
+
+\fej{Szemléltetés: „parabolaágak”}
+\[
+\boxed{\displaystyle
+\varphi(t)=\left(\frac{t+c}{2}\right)^2},\qquad t>-c.
+\]
+\begin{center}
+\begin{tikzpicture}[scale=0.91]
+\begin{scope}
+\clip (-2.8,-0.2) rectangle (3.5,2.5);
+\foreach \a in {-2.45,-0.95,0.65}{
+\draw[curve] plot[domain=\a:3.3,samples=70] (\x,{.25*(\x-\a)^2});
+}
+\end{scope}
+\draw[axis] (-2.8,0)--(3.5,0) node[below] {$t$};
+\draw[axis] (0,-0.15)--(0,2.5) node[above] {$x$};
+\draw[guide] (0,1)--(2.65,1)--(2.65,0);
+\fill[ink] (2.65,1) circle(1.8pt);
+\node[left] at (0,1) {$\xi$};
+\node[below] at (2.65,0) {$\tau$};
+\node[above right] at (1.50,2.5) {„parabolaágak”};
+\end{tikzpicture}
+\end{center}
+$\tau$ meghatározható
+
+
+\subsection*{4. példa: a szignumfüggvény}
+\begin{matbox}
+\[
+\boxed{x'(t)=\operatorname{sgn}(t)},\qquad t\in(-1,1).
+\]
+\end{matbox}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.92]
+\draw[axis] (-2,0)--(2.25,0) node[below] {$t$};
+\draw[axis] (0,-1.45)--(0,1.45) node[above] {$x$};
+\draw[curve,very thick] (-1.7,-1)--(0,-1);
+\draw[curve,very thick] (0,1)--(1.7,1);
+\draw[fill=white,draw=accent,semithick] (0,-1) circle(2.5pt);
+\draw[fill=white,draw=accent,semithick] (0,1) circle(2.5pt);
+\fill[ink] (0,0) circle(2.5pt);
+\node[left] at (0,1) {$1$};
+\node[right] at (0,-1) {$-1$};
+\end{tikzpicture}
+\figlabel{A $\operatorname{sgn}(t)$ függvény grafikonja.}
+\end{center}
+
+Ennek \textbf{nincs megoldása}, hiszen a szignumfüggvénynek
+$(-1,1)$-en nincs primitív függvénye
+\emph{(nem Darboux-tulajdonságú)}.
+
+\begin{matbox}
+\textbf{Megjegyzés:} A deriváltfüggvény mindig Darboux-tulajdonságú.
+
+Primitív függvény létezésének \textbf{szükséges feltétele}, hogy
+az adott függvény Darboux-tulajdonságú legyen.
+\end{matbox}
+
